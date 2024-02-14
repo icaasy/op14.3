@@ -5,6 +5,7 @@ set(CMAKE_C_STANDARD 11)
 
 add_executable(lab main.c
         libs/data_structures/vector/vector.h
+        libs/data_structures/vector/vector.c
 )
 
 add_subdirectory(libs)

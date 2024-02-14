@@ -10,4 +10,14 @@ typedef struct vector {
     size_t capacity; // вместимость вектора
 } vector;
 
+vector createVector(size_t capacity);
+
+void reserve(vector *v, size_t newCapacity);
+
+void clear(vector *v);
+
+void shrinkToFit(vector *v);
+
+void deleteVector(vector *v);
+
 #endif //LAB_VECTOR_H
