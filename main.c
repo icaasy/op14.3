@@ -433,9 +433,103 @@
 //    test_ordered_array_set_complement();
 //}
 
-int main() {
+void test_createVector() {
     vector vec = createVector(5);
+
+    assert(vec.capacity == 5);
+    assert(vec.size == 0);
+    assert(vec.data != NULL);
+
+    deleteVector(&vec);
+}
+
+void test_reserve() {
+    vector vec = createVector(5);
+    reserve(&vec, 8);
+
+    assert(vec.capacity == 8);
+    assert(vec.size == 0);
+    assert(vec.data != NULL);
+
     reserve(&vec, 3);
+
+    assert(vec.capacity == 3);
+    assert(vec.size == 0);
+    assert(vec.data != NULL);
+
+    pushBack(&vec, 1);
+    pushBack(&vec, 2);
+    pushBack(&vec, 3);
+
+    reserve(&vec, 2);
+
+    assert(vec.capacity == 2);
+    assert(vec.size == 2);
+    assert(vec.data != NULL);
+}
+
+void test_clear() {
+    vector vec = createVector(5);
+
+    pushBack(&vec, 1);
+    pushBack(&vec, 2);
+    pushBack(&vec, 3);
+
+    assert(vec.capacity == 5);
+    assert(vec.size == 3);
+    assert(vec.data != NULL);
+
+    clear(&vec);
+
+    assert(vec.capacity == 5);
+    assert(vec.size == 0);
+    assert(vec.data != NULL);
+}
+
+void test_shrinkToFit() {
+    vector vec = createVector(6);
+
+    shrinkToFit(&vec);
+
+    assert(vec.capacity == 0);
+    assert(vec.size == 0);
+    assert(vec.data != NULL);
+}
+
+void test_deleteVector() {
+    vector vec = createVector(6);
+
+    deleteVector(&vec);
+
+    assert(vec.capacity == 0);
+    assert(vec.size == 0);
+    assert(vec.data == NULL);
+}
+
+void test() {
+    test_createVector();
+    test_reserve();
+    test_clear();
+    test_shrinkToFit();
+    test_deleteVector();
+//    test_isEmpty();
+//    test_isFull();
+//    test_getVectorValue();
+}
+
+int main() {
+    test();
+
+//    bool res1 = isEmpty(&vec);
+//    printf("%d\n", res1);
+//
+//    bool res2 = isFull(&vec);
+//    printf("%d\n", res2);
+//
+//    int res3 = getVectorValue(&vec, 3);
+//    printf("%d\n", res3);
+//
+//    pushBack()
 
     return 0;
 }
