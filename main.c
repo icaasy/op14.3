@@ -3,6 +3,7 @@
 #include "libs/data_structures/array_set/unordered_array_set.h"
 #include "libs/data_structures/array_set/ordered_array_set.h"
 #include "libs/data_structures/vector/vector.h"
+#include "libs/data_structures/vector/vectorVoid.h"
 
 //void test_unordered_array_set_create() {
 //    unordered_array_set set1 =
@@ -664,6 +665,8 @@ void test() {
 
 int main() {
     test();
+
+    vectorVoid test;
 
     return 0;
 }
