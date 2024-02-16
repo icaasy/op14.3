@@ -10,7 +10,8 @@ vector createVector(size_t capacity) {
         fprintf(stderr, "bad alloc");
         exit(1);
     }
-    return (vector) {data, 0, capacity};
+
+    return (vector) { data, 0, capacity };
 }
 
 void reserve(vector *v, size_t newCapacity) {
@@ -22,7 +23,6 @@ void reserve(vector *v, size_t newCapacity) {
     }
 
     v->data = data;
-
     v->capacity = newCapacity;
 
     if (v->size > v->capacity) {
@@ -50,24 +50,42 @@ bool isEmpty(vector *v) {
 }
 
 bool isFull(vector *v) {
-    return v->size == v->capacity;
+    return v->size >= v->capacity;
 }
 
 int getVectorValue(vector *v, size_t i) {
+    if (i >= v->size) {
+        fprintf(stderr, "element not exists");
+        exit(1);
+    }
+
     return v->data[i];
 }
 
 void pushBack(vector *v, int x) {
-    if (v->size + 1 > v->capacity) {
-        reserve(v, v->size * 2);
+    if (v->size >= v->capacity) {
+        size_t curr_size = v->size == 0 ? 1 : v->size * 2;
+        reserve(v, curr_size);
     }
     v->data[v->size++] = x;
 }
 
 void popBack(vector *v) {
      if (v->size == 0) {
-         fprintf(stderr, "bad alloc");
+         fprintf(stderr, "vector is empty");
          exit(1);
      }
      v->size--;
+}
+
+//int* atVector(vector *v, size_t index) {
+//
+//}
+
+int* back(vector *v) {
+    return &v->data[v->size--];
+}
+
+int* front(vector *v) {
+    return &v->data[(v->size - v->size) + 1];
 }

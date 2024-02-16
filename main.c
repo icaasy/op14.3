@@ -505,6 +505,92 @@ void test_deleteVector() {
     assert(vec.size == 0);
     assert(vec.data == NULL);
 }
+//
+bool test_isEmpty() {
+    vector vec = createVector(6);
+
+    bool res = isEmpty(&vec);
+
+    assert(res);
+}
+
+bool test_isFull() {
+    vector vec = createVector(6);
+
+    bool res = isFull(&vec);
+
+    assert(!res);
+}
+
+int test_getVectorValue() {
+    vector vec = createVector(6);
+
+    int x = 4;
+
+    pushBack(&vec, 1);
+    pushBack(&vec, 2);
+    pushBack(&vec, x);
+
+    int res = getVectorValue(&vec, 2);
+
+    assert(res == x);
+}
+
+void test_pushBack_emptyVector() {
+    vector vec = createVector(0);
+
+    assert(vec.capacity == 0);
+    assert(vec.size == 0);
+    assert(vec.data != NULL);
+
+    int x = 4;
+    pushBack(&vec, x);
+
+    assert(vec.capacity == 1);
+    assert(vec.size == 1);
+    assert(vec.data != NULL);
+
+    assert(vec.data[0] == 4);
+}
+
+void test_pushBack_fullVector() {
+    vector vec = createVector(2);
+
+    assert(vec.capacity == 2);
+    assert(vec.size == 0);
+    assert(vec.data != NULL);
+
+    int x = 4;
+    pushBack(&vec, 1);
+    pushBack(&vec, x);
+
+    assert(vec.capacity == 2);
+    assert(vec.size == 2);
+    assert(vec.data != NULL);
+
+    assert(vec.data[1] == x);
+
+    int y = 5;
+    pushBack(&vec, y);
+
+    assert(vec.capacity == 4);
+    assert(vec.size == 3);
+    assert(vec.data != NULL);
+
+    assert(vec.data[2] == y);
+}
+
+void test_popBack() {
+    vector vec = createVector(0);
+    pushBack(&vec, 10);
+
+    assert(vec.size == 1);
+
+    popBack(&vec);
+
+    assert(vec.size == 0);
+    assert(vec.capacity == 1);
+}
 
 void test() {
     test_createVector();
@@ -512,24 +598,16 @@ void test() {
     test_clear();
     test_shrinkToFit();
     test_deleteVector();
-//    test_isEmpty();
-//    test_isFull();
-//    test_getVectorValue();
+    test_isEmpty();
+    test_isFull();
+    test_getVectorValue();
+    test_pushBack_emptyVector();
+    test_pushBack_fullVector();
+    test_popBack();
 }
 
 int main() {
     test();
-
-//    bool res1 = isEmpty(&vec);
-//    printf("%d\n", res1);
-//
-//    bool res2 = isFull(&vec);
-//    printf("%d\n", res2);
-//
-//    int res3 = getVectorValue(&vec, 3);
-//    printf("%d\n", res3);
-//
-//    pushBack()
 
     return 0;
 }
