@@ -645,6 +645,91 @@ void test_front_oneElementInVector() {
     assert(&vec.data[0] == res);
 }
 
+//--------------------------------------------------------
+
+vectorVoid test_createVectorV() {
+    vectorVoid vec = createVectorV(5, sizeof(int));
+
+    assert(vec.capacity == 5);
+    assert(vec.size == 0);
+    assert(vec.data != NULL);
+    assert(vec.baseTypeSize == sizeof(int));
+
+    deleteVectorV(&vec);
+}
+
+void test_reserveV() {
+    vectorVoid vec = createVectorV(5, sizeof(int));
+    reserveV(&vec, 8);
+
+    assert(vec.capacity == 8);
+    assert(vec.size == 0);
+    assert(vec.data != NULL);
+    assert(vec.baseTypeSize == sizeof(int));
+
+    reserveV(&vec, 3);
+
+    assert(vec.capacity == 3);
+    assert(vec.size == 0);
+    assert(vec.data != NULL);
+    assert(vec.baseTypeSize == sizeof(int));
+
+    int i = 1;
+    pushBackV(&vec, &i);
+    i = 2;
+    pushBackV(&vec, &i);
+    i = 3;
+    pushBackV(&vec, &i);
+
+    reserveV(&vec, 2);
+
+    assert(vec.capacity == 2);
+    assert(vec.size == 2);
+    assert(vec.data != NULL);
+    assert(vec.baseTypeSize == sizeof(int));
+}
+
+void test_shrinkToFitV() {
+    vectorVoid vec = createVectorV(6, sizeof(int));
+
+    shrinkToFitV(&vec);
+
+    assert(vec.capacity == 0);
+    assert(vec.size == 0);
+    assert(vec.data != NULL);
+}
+
+void test_clearV() {
+    vectorVoid vec = createVectorV(5, sizeof(int));
+
+    int i = 1;
+    pushBackV(&vec, &i);
+    i = 2;
+    pushBackV(&vec, &i);
+    i = 3;
+    pushBackV(&vec, &i);
+
+    assert(vec.capacity == 5);
+    assert(vec.size == 3);
+    assert(vec.data != NULL);
+
+    clearV(&vec);
+
+    assert(vec.capacity == 5);
+    assert(vec.size == 0);
+    assert(vec.data != NULL);
+}
+
+void test_deleteVectorV() {
+    vectorVoid vec = createVectorV(6, sizeof(int));
+
+    deleteVectorV(&vec);
+
+    assert(vec.capacity == 0);
+    assert(vec.size == 0);
+    assert(vec.data == NULL);
+}
+
 void test() {
     test_createVector();
     test_reserve();
@@ -661,6 +746,15 @@ void test() {
     test_atVector_requestToLastElement();
     test_back_oneElementInVector();
     test_front_oneElementInVector();
+
+    //--------------------------------------------------------
+
+    test_createVectorV();
+    test_reserveV();
+    test_shrinkToFitV();
+    test_clearV();
+    test_deleteVectorV();
+
 }
 
 int main() {
